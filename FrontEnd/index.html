@@ -69,26 +69,36 @@
 	</section>
 </main>
 
-<aside class="modal" id="modal-gallery" aria-hidden="true" role="dialog" aria-labelledby="title-modal">
+<aside class="modal " id="modal-gallery" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
 	<div class="modal-wrapper js-modal-stop">
-		<button class="js-modal-close">close</button>
-
-		<!-- Section Galerie -->
-		<div id="gallery-section">
-			<h2 class="title-modal">Galerie photo</h2>
-			<div class="modal-works"></div>
-			<button id="show-add-photo">Ajouter une photo</button>
-		</div>
-
-		<!-- Section Ajout Photo -->
-		<div id="add-photo-section" style="display: none;">
-			<h2>Ajout photo</h2>
-			<div class="add-picture">
-				<p><i class="fa-regular fa-image"></i></p>
-				<button>+ Ajouter photo</button>
-				<p>jpg, png : 4mo max</p>
+		<div class="gallery-section__btn">
+			<div>
+				<button class="back-to-gallery"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
 			</div>
 			<div>
+				<button class="js-modal-close"><i class="fa-solid fa-xmark fa-xl"></i></button>
+			</div>
+		</div>
+		<div class="gallery-section">
+			<div class="gallery-section__title">
+				<h2 class="title-modal">Galerie photo</h2>
+			</div>
+			<div class="modal-works"></div>
+			<div class="modal-bar"></div>
+			<div class="modal-button">
+				<button class="show-add-photo modal-btn">Ajouter une photo</button>
+			</div>
+		</div>
+		<div class="add-photo-section" style="display: none;">
+			<div class="add-photo-section__title">
+				<h2 class="title-modal">Ajout photo</h2>
+			</div>
+			<div class="add-picture">
+				<p class="img"><i class="fa-regular fa-image"></i></p>
+				<button>+ Ajouter photo</button>
+				<p class="legend">jpg, png : 4mo max</p>
+			</div>
+			<div class="add-photo-section__form">
 				<label for="title">Titre</label>
 				<input type="text" name="title" id="title">
 				<label for="category">Catégorie</label>
@@ -96,8 +106,8 @@
 					<option value=""></option>
 				</select>
 			</div>
-			<button>Valider</button>
-			<button id="back-to-gallery">Retour à la galerie</button>
+			<div class="modal-bar-add"></div>
+			<button class="modal-btn">Valider</button>
 		</div>
 	</div>
 </aside>

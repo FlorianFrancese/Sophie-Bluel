@@ -111,7 +111,7 @@ const openModal = function (event) {
     modal = document.querySelector(event.target.getAttribute('href'));
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
     previouslyFocusedElement = document.querySelector(':focus');
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
     modal.removeAttribute('aria-hidden');
     modal.setAttribute('aria-modal', 'true');
     focusables[0].focus();
@@ -133,6 +133,9 @@ const closeModal = function (event) {
         modal.style.display = 'none'
         modal.removeEventListener('animationend', hideModal);
         modal = null;
+        gallerySection.style.display = 'flex';
+        addPhotoSection.style.display = 'none';
+        backToGalleryButton.style.display = 'none';
     }
     modal.addEventListener('animationend', hideModal);
 }
@@ -182,36 +185,36 @@ for (let workModal = 0; workModal < returnWorks.length; workModal++) {
     worksModal.appendChild(figure);
 }
 
-const categorieModal = document.querySelector('select#category');
-if (categorieModal) {
-    for (let modalcategorie = 0; modalcategorie < returnCategories.length; modalcategorie++) {
-        const modalcategories = document.createElement('option');
-        modalcategories.textContent = returnCategories[modalcategorie].name;
-        modalcategories.value = returnCategories[modalcategorie].id;
-        categorieModal.appendChild(modalcategories);
-    }
+const categorieModal = document.querySelector('.add-photo-section select');
+for (let modalcategorie = 0; modalcategorie < returnCategories.length; modalcategorie++) {
+    const modalcategories = document.createElement('option');
+    modalcategories.textContent = returnCategories[modalcategorie].name;
+    modalcategories.value = returnCategories[modalcategorie].id;
+    categorieModal.appendChild(modalcategories);
 }
 
-const showAddPhotoButton = document.querySelector('#show-add-photo');
+const showAddPhotoButton = document.querySelector('.show-add-photo');
 if (showAddPhotoButton) {
-    showAddPhotoButton.addEventListener('click', function() {
-        const gallerySection = document.querySelector('#gallery-section');
-        const addPhotoSection = document.querySelector('#add-photo-section');
+    showAddPhotoButton.addEventListener('click', function () {
+        const gallerySection = document.querySelector('.gallery-section');
+        const addPhotoSection = document.querySelector('.add-photo-section');
         if (gallerySection && addPhotoSection) {
             gallerySection.style.display = 'none';
-            addPhotoSection.style.display = 'block';
+            addPhotoSection.style.display = 'flex';
+            backToGalleryButton.style.display = 'flex';
         }
     });
 }
 
-const backToGalleryButton = document.querySelector('#back-to-gallery');
+const backToGalleryButton = document.querySelector('.back-to-gallery');
+const gallerySection = document.querySelector('.gallery-section');
+const addPhotoSection = document.querySelector('.add-photo-section');
 if (backToGalleryButton) {
     backToGalleryButton.addEventListener('click', function() {
-        const gallerySection = document.querySelector('#gallery-section');
-        const addPhotoSection = document.querySelector('#add-photo-section');
         if (gallerySection && addPhotoSection) {
-            gallerySection.style.display = 'block';
+            gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
+            backToGalleryButton.style.display = 'none';
         }
     });
 }

@@ -23,6 +23,11 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+* {
+	box-sizing: border-box;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -46,6 +51,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+button {
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+}
+
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -244,26 +256,172 @@ footer nav ul {
 /* Modals */
 
 .modal {
-	display: none;
 	position: fixed;
-	z-index: 1;
-	left: 0;
 	top: 0;
+	left: 0;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
-	overflow: auto;
-	background-color: rgba(0,0,0,0.9);
+	background: rgba(0,0,0,0.8);
 	animation: fadeIn 0.3s both;
 }  
 
-
 .modal-wrapper {
+	overflow: auto;
+	width: 630px;
+	height: auto;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	background-color: white;
+	border-radius: 10px;
+	animation: slideFromTop 0.5s both;
+}
+
+.gallery-section, .add-photo-section {
+	display: flex;
+	flex-direction: column;
+	padding: 30px 100px 30px 100px;
+}
+
+.gallery-section__btn {
+	display: flex;
+	justify-content: space-between;
+	padding: 26px 30px 10px 26px;
+}
+
+.gallery-section__title{
 	display: flex;
 	justify-content: center;
+	margin-bottom: 48px;
+}
+
+.title-modal {
+	color: black;
+}
+
+.modal-works {
+	display: grid;
+	grid-gap: 9px;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	margin-bottom: 40px;
+}
+
+.js-modal-close, .back-to-gallery {
+	color: black;
+}
+
+.back-to-gallery {
+	display: none;
+}
+
+.add-photo-section__title {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 48px;
+}
+
+.add-picture {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+	width: 420px;
+	height: auto;
+	color: #B9C5CC;
+	background-color: #E8F1F6;
+	padding: 20px;
+}
+
+.add-picture .img{
+	font-size: 76px;
+	margin-bottom: 8px;
+}
+
+.add-photo-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.add-picture button {
+	cursor: pointer;
+	background-color: #CBD6DC;
+	width: 173px;
+	border: none;
+	padding: 10px 0 10px 0;
+	border-radius: 50px;
+	color: #306685;
+	margin-bottom: 8px;
+}
+
+.legend {
+	color: #444444;
+}
+
+.add-photo-section__form {
 	width: 100%;
-	height: 100%;
-	animation: slideFromTop 0.5s both;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.add-photo-section__form label {
+	color: #3D3D3D;
+	margin-bottom: 10px;
+}
+
+.add-photo-section__form input {
+	margin-bottom: 20px;
+}
+
+.add-photo-section__form input, .add-photo-section__form select {
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	border: none;
+	height: 50px;
+}
+
+.modal-bar {
+	border: #B3B3B3 1px solid;
+	margin-bottom: 38px;
+}
+
+.modal-bar-add {
+	width: 100%;
+	border: #B3B3B3 1px solid;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.modal-button {
+	display: flex;
+	justify-content: center;
+}
+
+.modal-btn {
+	width: 237px;
+	height: 36;
+	font-size: 1.2em;
+	border: none;
+	border-radius: 60px;
+	color: white;
+	background-color: #1D6154;
+	padding: 10px 0 10px 0;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.modal-works figure {
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.modal-works figure  img {
+	width: 100%;
+	height: auto;
 }
 
 .modal[aria-hidden="true"] {
