@@ -307,6 +307,19 @@ footer nav ul {
 	margin-bottom: 40px;
 }
 
+
+
+.trash {
+	display: flex;
+	padding: 8px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	background-color: black;
+	color: white;
+	border-radius: 10px;
+}
+
 .js-modal-close, .back-to-gallery {
 	color: black;
 }

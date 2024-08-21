@@ -178,10 +178,27 @@ window.addEventListener('keydown', function (event) {
 const worksModal = document.querySelector('.modal-works');
 for (let workModal = 0; workModal < returnWorks.length; workModal++) { 
     const figure = document.createElement('figure');
+    const divImg = document.createElement('div');
     const img = document.createElement('img');
+    divImg.classList.add('divImg');
     img.src = returnWorks[workModal].imageUrl;
     img.alt = returnWorks[workModal].title;
-    figure.appendChild(img);
+    img.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+    const trash = document.createElement('div');
+    trash.classList.add('trash');
+    trash.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+    trash.addEventListener('click', async function () {
+        await fetch('http://localhost:5678/api/works/' + returnWorks[workModal].id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+    });
+    figure.appendChild(trash);
+    divImg.appendChild(img);
+    figure.appendChild(divImg);
     worksModal.appendChild(figure);
 }
 
