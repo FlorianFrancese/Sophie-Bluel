@@ -121,6 +121,7 @@ const openModal = function (event) {
 }
 
 const closeModal = function (event) {
+    event.preventDefault();
     if (modal === null) return;
     if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
     event.preventDefault();
@@ -178,28 +179,29 @@ window.addEventListener('keydown', function (event) {
 const worksModal = document.querySelector('.modal-works');
 for (let workModal = 0; workModal < returnWorks.length; workModal++) { 
     const figure = document.createElement('figure');
-    const divImg = document.createElement('div');
     const img = document.createElement('img');
-    divImg.classList.add('divImg');
     img.src = returnWorks[workModal].imageUrl;
     img.alt = returnWorks[workModal].title;
-    img.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-    const trash = document.createElement('div');
+    const trash = document.createElement('button');
     trash.classList.add('trash');
-    trash.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-    trash.addEventListener('click', async function () {
-        await fetch('http://localhost:5678/api/works/' + returnWorks[workModal].id, {
+    trash.type = 'button';
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('fa-solid', 'fa-trash-can');
+    trash.appendChild(trashIcon);
+    figure.appendChild(trash);
+    figure.appendChild(img);
+    worksModal.appendChild(figure);
+    trash.addEventListener('click', function (event) {
+        event.preventDefault();
+        fetch('http://localhost:5678/api/works/' + returnWorks[workModal].id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             }
         });
+        figure.remove();
     });
-    figure.appendChild(trash);
-    divImg.appendChild(img);
-    figure.appendChild(divImg);
-    worksModal.appendChild(figure);
 }
 
 const categorieModal = document.querySelector('.add-photo-section select');
@@ -235,3 +237,28 @@ if (backToGalleryButton) {
         }
     });
 }
+
+const addPhotoBtn = document.querySelector('.add-photo-btn');
+const fileInput = document.querySelector('.btn-input');
+addPhotoBtn.addEventListener('click', function() {
+    fileInput.click();
+});
+
+const sendWorkBtn = document.querySelector('.send-work');
+sendWorkBtn.addEventListener('click', async function (event) {
+    event.preventDefault();
+    let image = document.querySelector('.btn-input').files[0];
+    let title = document.querySelector('input[name="title"]').value;
+    let category = document.querySelector('select[name="category"]').value;
+    let formData = new FormData();
+    formData.append('image', image);
+    formData.append('title', title);
+    formData.append('category', category);
+    const response = await fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        body: formData
+    });
+});
