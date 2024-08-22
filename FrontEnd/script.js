@@ -42,6 +42,7 @@ const filters = document.querySelector('.filters');
 
 // Ajout du bouton "Tous" en premier et écoute de l'événement click pour afficher tous les travaux
 const btnAll = document.createElement('button');
+btnAll.classList.add('btn-filter__highlight');
 btnAll.textContent = 'Tous';
 btnAll.addEventListener('click', () => createGallery(returnWorks));
 filters.appendChild(btnAll);
@@ -49,6 +50,7 @@ filters.appendChild(btnAll);
 // Ajout des boutons pour chaque catégorie présente dans la base de données à l'aide d'une boucle
 for (let categorie = 0; categorie < returnCategories.length; categorie++) {
     const btnFilters = document.createElement('button');
+    btnFilters.classList.add('btn-filter');
     btnFilters.textContent = returnCategories[categorie].name;
     filters.appendChild(btnFilters);
 
@@ -64,6 +66,17 @@ for (let categorie = 0; categorie < returnCategories.length; categorie++) {
         createGallery(filteredWorks);
     });
 }
+
+const changeClassFilter = document.querySelectorAll('.filters button');
+changeClassFilter.forEach(button => {
+    button.addEventListener('click', () => {
+        const removeHighlight = document.querySelector('.btn-filter__highlight');
+        removeHighlight.classList.add('btn-filter');
+        removeHighlight.classList.remove('btn-filter__highlight');
+        button.classList.add('btn-filter__highlight');
+    });
+});
+
 
 // ************************************************************
 // Récupération du token
@@ -262,3 +275,42 @@ sendWorkBtn.addEventListener('click', async function (event) {
         body: formData
     });
 });
+
+let miniature = document.querySelector('.add-miniature');
+let addImage = document.querySelector('.add-picture');
+fileInput.addEventListener('change', function() {
+    let image = fileInput.files[0];
+    if (image) {
+        addImage.style.display = 'none';
+        miniature.style.display = 'flex';
+        let img = document.createElement('img');
+        let reader = new FileReader();
+        reader.onload = function(event) {
+            img.src = event.target.result;
+            miniature.innerHTML = '';
+            miniature.appendChild(img);
+            img.addEventListener('click', function() {
+                fileInput.click();
+            });
+        };
+        reader.readAsDataURL(image);
+    }
+});
+
+let titleInput = document.querySelector('input[name="title"]');
+let categorySelect = document.querySelector('select[name="category"]');
+function checkFields() {
+    let image = fileInput.files[0];
+    let title = titleInput.value;
+    let category = categorySelect.value;
+
+    if (image && title && category) {
+        sendWorkBtn.classList.remove('disable');
+    } else {
+        sendWorkBtn.classList.add('disable');
+    }
+}
+
+fileInput.addEventListener('change', checkFields);
+titleInput.addEventListener('input', checkFields);
+categorySelect.addEventListener('change', checkFields);
