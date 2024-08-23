@@ -2,7 +2,7 @@
 // Envoie de la requête de connexion à l'API en récupérant les données du formulaire
 // Stockage du token dans le localStorage
 // ************************************************************
-const loginForm = document.querySelector('.login form');
+const loginForm = document.querySelector('.login-form form');
 async function loginRequest (loginForm) {
     let email = loginForm.querySelector('input[name="email"]').value;
     let password = loginForm.querySelector('input[name="password"]').value;
@@ -24,7 +24,11 @@ async function loginRequest (loginForm) {
 
 function error () {
     const error = document.querySelector('.error');
-    error.textContent = 'Email ou mot de passe incorrect';
+    const pError = document.createElement('p');
+    pError.textContent = "L'adresse e-mail ou le mot de passe que vous avez entré est incorrect.";
+    error.style.display = 'block';
+    error.appendChild(pError);
+
 }
 
 // ************************************************************

@@ -1,12 +1,26 @@
 // ************************************************************
 // Appel de l'API pour récupérer les catégories et les travaux
+// Gestion des erreurs si l'API ne répond pas
 // ************************************************************
 
-// Récupération des travaux et des catégories depuis l'API + conversion en JSON
-const works = await fetch('http://localhost:5678/api/works');
-const returnWorks = await works.json();
-const categories = await fetch('http://localhost:5678/api/categories');
-const returnCategories = await categories.json();
+let returnWorks;
+let returnCategories;
+
+try {
+    const worksResponse = await fetch('http://localhost:5678/api/works');
+    if (!worksResponse.ok) {
+        throw new Error('Erreur lors de la récupération des travaux.');
+    }
+    returnWorks = await worksResponse.json();
+
+    const categoriesResponse = await fetch('http://localhost:5678/api/categories');
+    if (!categoriesResponse.ok) {
+        throw new Error('Erreur lors de la récupération des catégories.');
+    }
+    returnCategories = await categoriesResponse.json();
+} catch (error) {
+    console.error('Une erreur s\'est produite :', error.message);
+}
 
 // ************************************************************
 // Affichage des travaux
@@ -32,6 +46,7 @@ function createGallery(returnWorks) {
 
 // Appel de la fonction pour afficher tous les travaux
 createGallery(returnWorks); 
+
 
 // ************************************************************
 // Affichage des filtres
@@ -204,9 +219,9 @@ for (let workModal = 0; workModal < returnWorks.length; workModal++) {
     figure.appendChild(trash);
     figure.appendChild(img);
     worksModal.appendChild(figure);
-    trash.addEventListener('click', function (event) {
+    trash.addEventListener('click', async function (event) {
         event.preventDefault();
-        fetch('http://localhost:5678/api/works/' + returnWorks[workModal].id, {
+        await fetch('http://localhost:5678/api/works/' + returnWorks[workModal].id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -274,6 +289,24 @@ sendWorkBtn.addEventListener('click', async function (event) {
         },
         body: formData
     });
+    if (response.ok) {
+        const success = document.querySelector('.add-photo-section');
+        success.innerHTML ='';
+        const successMessage = document.createElement('p');
+        successMessage.textContent = 'Votre photo a bien été envoyée';
+        success.appendChild(successMessage);
+        const successButton = document.createElement('button');
+        successButton.type = 'button';
+        successButton.classList.add('modal-btn', 'btn-success');
+        successButton.textContent = 'OK';
+        success.appendChild(successButton);
+        successButton.addEventListener('click', function() {
+            gallerySection.style.display = 'flex';
+            addPhotoSection.style.display = 'none';
+            backToGalleryButton.style.display = 'none';
+            createGallery(returnWorks);
+        });
+    }
 });
 
 let miniature = document.querySelector('.add-miniature');
