@@ -118,6 +118,10 @@ h2{
 	padding: 20px;
 }
 
+.bar a:hover, .edit a:hover {
+	color: #B1663C;
+}
+
 .nav {
 	display: flex;
 	justify-content: space-between;
@@ -141,6 +145,7 @@ a {
 }
 
 li:hover {
+	cursor: pointer;
 	color: #B1663C;
 }
 
@@ -271,6 +276,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
@@ -281,19 +287,52 @@ footer nav ul {
 
 /* Login */
 
-.login {
+.login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 80vh;
+  transform: translateY(-60px);
 }
 
-.login form {
+.login-form h2 {
+	padding-bottom: 50px;
+  }
+
+.login-form form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
   }
+
+.login-form form input[type="email"], .login-form form input[type="password"] {
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin-bottom: 30px;
+box-shadow: 0px 4px 14px 0px #00000017;
+border: none;
+width: 380px;
+height: 51px;
+}  
+
+.login-form form label {
+	margin-bottom: 10px;
+	} 
+
+
+.login-form form input[type="submit"] {
+padding: 10px;
+border: none;
+}  
+
+.login-form a {
+font-size: 14px;
+color: #3D3D3D;
+text-decoration: underline;
+
+}  
 
 /* Modals */
 
@@ -339,6 +378,9 @@ footer nav ul {
 }
 
 .title-modal {
+	font-size: 26px;
+	font-family: 'work sans';
+	font-weight: 400;
 	color: black;
 }
 
@@ -352,18 +394,27 @@ footer nav ul {
 
 
 .trash {
+	position: absolute;
+	right: 5px;
+	top: 6px;
 	display: flex;
-	padding: 8px;
+	padding: 6px;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	border: none;
 	background-color: black;
 	color: white;
-	border-radius: 10px;
+	border-radius: 5px;
+}
+
+.trash i {
+	font-size: 14px;
 }
 
 .js-modal-close, .back-to-gallery {
 	color: black;
+	border: none;
 }
 
 .back-to-gallery {
@@ -473,6 +524,7 @@ footer nav ul {
 }
 
 .modal-works figure {
+	position: relative;
 	width: 100%;
 	height: auto;
 	margin-bottom: 20px;
@@ -535,7 +587,31 @@ footer nav ul {
 }
 
 .disable {
-	background-color: gray;
+	background-color: #A7A7A7;
 	color: white;
 	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.add-photo-section__form input, .add-photo-section__form select {
+	padding: 16px;
+	color: #444444;
+}
+
+.add-photo-section__form select {
+	position: relative;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.add-photo-section__form::after {
+	content: '\f078';
+	color: #6C6C6C;
+	font-family: 'FontAwesome';
+	position: absolute;
+	right: 20%;
+	bottom: 25%;
+	transform: translateY(-50%);
+	pointer-events: none;
 }
