@@ -297,7 +297,7 @@ sendWorkBtn.addEventListener('click', async function (event) {
         success.appendChild(successMessage);
         const validate = document.createElement('lord-icon');
         validate.setAttribute('src', 'https://cdn.lordicon.com/cgzlioyf.json');
-        validate.trigger('in');
+        validate.setAttribute('trigger', 'in');
         validate.delay = '1000';
         validate.state = 'in-reveal';
         validate.style = 'width:250px;height:250px;color:primary:#1d6154';
