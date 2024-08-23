@@ -312,6 +312,7 @@ sendWorkBtn.addEventListener('click', async function (event) {
         successButton.addEventListener('click', function() {
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
+            addPhotoSection.innerHTML = '';
             backToGalleryButton.style.display = 'none';
         });
     }
