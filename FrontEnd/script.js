@@ -313,6 +313,22 @@ sendWorkBtn.addEventListener('click', async function (event) {
         successButton.addEventListener('click', function() {
             const parent = success.parentNode;
             parent.replaceChild(originalAddPhotoSection.cloneNode(true), success);
+            sendWorkBtn.addEventListener('click', async function (event) {
+                event.preventDefault();
+                let image = document.querySelector('.btn-input').files[0];
+                let title = document.querySelector('input[name="title"]').value;
+                let category = document.querySelector('select[name="category"]').value;
+                let formData = new FormData();
+                formData.append('image', image);
+                formData.append('title', title);
+                formData.append('category', category);
+                const response = await fetch('http://localhost:5678/api/works', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: formData
+                });
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
             addPhotoSection.innerHTML = '';
