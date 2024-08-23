@@ -295,6 +295,13 @@ sendWorkBtn.addEventListener('click', async function (event) {
         const successMessage = document.createElement('p');
         successMessage.textContent = 'Votre photo a bien été envoyée';
         success.appendChild(successMessage);
+        const validate = document.createElement('lord-icon');
+        validate.setAttribute('src', 'https://cdn.lordicon.com/cgzlioyf.json');
+        validate.trigger('in');
+        validate.delay = '1000';
+        validate.state = 'in-reveal';
+        validate.style = 'width:250px;height:250px;color:primary:#1d6154';
+        success.appendChild(validate);
         const successButton = document.createElement('button');
         successButton.type = 'button';
         successButton.classList.add('modal-btn', 'btn-success');
@@ -304,7 +311,6 @@ sendWorkBtn.addEventListener('click', async function (event) {
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
             backToGalleryButton.style.display = 'none';
-            createGallery(returnWorks);
         });
     }
 });
