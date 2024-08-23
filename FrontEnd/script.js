@@ -303,7 +303,7 @@ sendWorkBtn.addEventListener('click', async function (event) {
         validate.setAttribute('trigger', 'in');
         validate.delay = '1000';
         validate.state = 'in-reveal';
-        validate.style = 'width:250px;height:250px;colors="primary:#1d6154"';
+        validate.style = 'width:250px;height:250px;color:#1D6154';
         success.appendChild(validate);
         const successButton = document.createElement('button');
         successButton.type = 'button';
@@ -317,22 +317,13 @@ sendWorkBtn.addEventListener('click', async function (event) {
             addPhotoSection.style.display = 'none';
             addPhotoSection.innerHTML = '';
             backToGalleryButton.style.display = 'none';
-            sendWorkBtn.addEventListener('click', async function (event) {
-                event.preventDefault();
-                let image = document.querySelector('.btn-input').files[0];
-                let title = document.querySelector('input[name="title"]').value;
-                let category = document.querySelector('select[name="category"]').value;
-                let formData = new FormData();
-                formData.append('image', image);
-                formData.append('title', title);
-                formData.append('category', category);
-                const response = await fetch('http://localhost:5678/api/works', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: formData
-
+            const response = await fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                body: formData
+            });
         });
     }
 });
