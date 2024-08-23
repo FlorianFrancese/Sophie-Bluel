@@ -317,12 +317,8 @@ sendWorkBtn.addEventListener('click', async function (event) {
             addPhotoSection.style.display = 'none';
             addPhotoSection.innerHTML = '';
             backToGalleryButton.style.display = 'none';
-            const response = await fetch('http://localhost:5678/api/works', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                body: formData
+            addPhotoBtn.addEventListener('click', function() {
+                fileInput.click();
             });
         });
     }
