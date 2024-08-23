@@ -290,6 +290,8 @@ sendWorkBtn.addEventListener('click', async function (event) {
         body: formData
     });
     if (response.ok) {
+        const newWork = await response.json();
+        addWorkToDOM(newWork);
         const success = document.querySelector('.add-photo-section');
         success.innerHTML ='';
         const successMessage = document.createElement('p');
@@ -314,6 +316,36 @@ sendWorkBtn.addEventListener('click', async function (event) {
         });
     }
 });
+
+function addWorkToDOM(work) {
+    const figure = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = work.imageUrl;
+    img.alt = work.title;
+
+    const trash = document.createElement('button');
+    trash.classList.add('trash');
+    trash.type = 'button';
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('fa-solid', 'fa-trash-can');
+    trash.appendChild(trashIcon);
+    
+    figure.appendChild(trash);
+    figure.appendChild(img);
+    worksModal.appendChild(figure);
+
+    trash.addEventListener('click', async function (event) {
+        event.preventDefault();
+        await fetch('http://localhost:5678/api/works/' + work.id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        figure.remove();
+    });
+}
 
 let miniature = document.querySelector('.add-miniature');
 let addImage = document.querySelector('.add-picture');
