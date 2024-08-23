@@ -303,7 +303,7 @@ sendWorkBtn.addEventListener('click', async function (event) {
         validate.setAttribute('trigger', 'in');
         validate.delay = '1000';
         validate.state = 'in-reveal';
-        validate.style = 'width:250px;height:250px;color:#1D6154';
+        validate.style = 'width:250px;height:250px;colors="primary:#1d6154"';
         success.appendChild(validate);
         const successButton = document.createElement('button');
         successButton.type = 'button';
