@@ -313,6 +313,10 @@ sendWorkBtn.addEventListener('click', async function (event) {
         successButton.addEventListener('click', function() {
             const parent = success.parentNode;
             parent.replaceChild(originalAddPhotoSection.cloneNode(true), success);
+            gallerySection.style.display = 'flex';
+            addPhotoSection.style.display = 'none';
+            addPhotoSection.innerHTML = '';
+            backToGalleryButton.style.display = 'none';
             sendWorkBtn.addEventListener('click', async function (event) {
                 event.preventDefault();
                 let image = document.querySelector('.btn-input').files[0];
@@ -328,11 +332,7 @@ sendWorkBtn.addEventListener('click', async function (event) {
                         'Authorization': 'Bearer ' + token
                     },
                     body: formData
-                });
-            gallerySection.style.display = 'flex';
-            addPhotoSection.style.display = 'none';
-            addPhotoSection.innerHTML = '';
-            backToGalleryButton.style.display = 'none';
+
         });
     }
 });
