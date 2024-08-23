@@ -272,6 +272,7 @@ addPhotoBtn.addEventListener('click', function() {
     fileInput.click();
 });
 
+const originalAddPhotoSection = document.querySelector('.add-photo-section').cloneNode(true);
 const sendWorkBtn = document.querySelector('.send-work');
 sendWorkBtn.addEventListener('click', async function (event) {
     event.preventDefault();
@@ -310,6 +311,8 @@ sendWorkBtn.addEventListener('click', async function (event) {
         successButton.textContent = 'OK';
         success.appendChild(successButton);
         successButton.addEventListener('click', function() {
+            const parent = success.parentNode;
+            parent.replaceChild(originalAddPhotoSection.cloneNode(true), success);
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
             addPhotoSection.innerHTML = '';
