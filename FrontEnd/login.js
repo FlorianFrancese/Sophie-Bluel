@@ -24,6 +24,7 @@ async function loginRequest (loginForm) {
 
 function error () {
     const error = document.querySelector('.error');
+    error.innerHTML = '';
     const pError = document.createElement('p');
     pError.textContent = "L'adresse e-mail ou le mot de passe que vous avez entré est incorrect.";
     error.style.display = 'block';

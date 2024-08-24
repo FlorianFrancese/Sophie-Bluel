@@ -103,17 +103,19 @@ let token = localStorage.getItem('token');
 // Afficahge des informations si l'utilisateur est connecté
 // ************************************************************
 
-if (token !== "undefined" && token !== null) {
+if (token) {
     const bar = document.querySelector('.bar');
     const edit = document.querySelector('.edit');
     const login = document.querySelector('.login');
     const logout = document.querySelector('.logout');
     const header = document.querySelector('header');
+    const filters = document.querySelector('.filters');
     bar.style.display = 'flex';
     edit.style.display = 'flex';
     login.style.display = 'none';
     logout.style.display = 'block';
     header.style.margin = '0';
+    filters.style.display = 'none';
 }
 
 // ************************************************************
@@ -229,6 +231,8 @@ for (let workModal = 0; workModal < returnWorks.length; workModal++) {
             }
         });
         figure.remove();
+        const galleryFigure = document.querySelectorAll('.gallery figure');
+        galleryFigure[workModal].remove();
     });
 }
 
@@ -322,18 +326,26 @@ function addWorkToDOM(work) {
     const img = document.createElement('img');
     img.src = work.imageUrl;
     img.alt = work.title;
-
     const trash = document.createElement('button');
     trash.classList.add('trash');
     trash.type = 'button';
     const trashIcon = document.createElement('i');
     trashIcon.classList.add('fa-solid', 'fa-trash-can');
     trash.appendChild(trashIcon);
-    
     figure.appendChild(trash);
     figure.appendChild(img);
     worksModal.appendChild(figure);
-
+    const gallery = document.querySelector('.gallery');
+    const galleryFigure = document.createElement('figure');
+    galleryFigure.setAttribute('data-id', work.id);
+    const galleryImg = document.createElement('img');
+    galleryImg.src = work.imageUrl;
+    galleryImg.alt = work.title;
+    const galleryFigcaption = document.createElement('figcaption');
+    galleryFigcaption.textContent = work.title;
+    galleryFigure.appendChild(galleryImg);
+    galleryFigure.appendChild(galleryFigcaption);
+    gallery.appendChild(galleryFigure);
     trash.addEventListener('click', async function (event) {
         event.preventDefault();
         await fetch('http://localhost:5678/api/works/' + work.id, {
@@ -344,6 +356,8 @@ function addWorkToDOM(work) {
             }
         });
         figure.remove();
+        const galleryItem = document.querySelector(`.gallery figure[data-id='${work.id}']`);
+        galleryItem.remove();
     });
 }
 
@@ -351,7 +365,9 @@ let miniature = document.querySelector('.add-miniature');
 let addImage = document.querySelector('.add-picture');
 fileInput.addEventListener('change', function() {
     let image = fileInput.files[0];
-    if (image) {
+    const validExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
+    const validSize = 4 * 1024 * 1024;
+    if (image && validExtensions.includes(image.type)) {
         addImage.style.display = 'none';
         miniature.style.display = 'flex';
         let img = document.createElement('img');
@@ -365,6 +381,11 @@ fileInput.addEventListener('change', function() {
             });
         };
         reader.readAsDataURL(image);
+    } else if (validSize <= image.size) {
+        alert('Le fichier doit faire maximum 4mo.');
+    }
+    else {
+        alert('Le fichier doit être une image au format png, jpg ou jpeg.');
     }
 });
 
