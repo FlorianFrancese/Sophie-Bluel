@@ -272,7 +272,6 @@ addPhotoBtn.addEventListener('click', function() {
     fileInput.click();
 });
 
-const originalAddPhotoSection = document.querySelector('.add-photo-section').cloneNode(true);
 const sendWorkBtn = document.querySelector('.send-work');
 sendWorkBtn.addEventListener('click', async function (event) {
     event.preventDefault();
@@ -293,30 +292,15 @@ sendWorkBtn.addEventListener('click', async function (event) {
     if (response.ok) {
         const newWork = await response.json();
         addWorkToDOM(newWork);
-        const success = document.querySelector('.add-photo-section');
-        success.innerHTML ='';
-        const successMessage = document.createElement('p');
-        successMessage.textContent = 'Votre photo a bien été envoyée';
-        success.appendChild(successMessage);
-        const validate = document.createElement('lord-icon');
-        validate.setAttribute('src', 'https://cdn.lordicon.com/cgzlioyf.json');
-        validate.setAttribute('trigger', 'in');
-        validate.delay = '1000';
-        validate.state = 'in-reveal';
-        validate.style = 'width:250px;height:250px;color:#1D6154';
-        success.appendChild(validate);
-        const successButton = document.createElement('button');
-        successButton.type = 'button';
-        successButton.classList.add('modal-btn', 'btn-success');
-        successButton.textContent = 'OK';
-        success.appendChild(successButton);
+        const success = document.querySelector('.success');
+        success.style.display = 'flex';
+        addPhotoSection.style.display = 'none';
+        const successButton = document.querySelector('.btn-success');
         successButton.addEventListener('click', function() {
-            const parent = success.parentNode;
-            parent.replaceChild(originalAddPhotoSection.cloneNode(true), success);
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
-            addPhotoSection.innerHTML = '';
             backToGalleryButton.style.display = 'none';
+            success.style.display = 'none';
             addPhotoBtn.addEventListener('click', function() {
                 fileInput.click();
             });
