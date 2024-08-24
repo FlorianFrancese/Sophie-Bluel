@@ -313,6 +313,7 @@ sendWorkBtn.addEventListener('click', async function (event) {
                 backToGalleryButton.style.display = 'none';
                 success.style.display = 'none';
             }
+        });
     }
 });
 
