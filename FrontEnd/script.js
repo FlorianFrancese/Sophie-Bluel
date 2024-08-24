@@ -256,12 +256,14 @@ if (showAddPhotoButton) {
 const backToGalleryButton = document.querySelector('.back-to-gallery');
 const gallerySection = document.querySelector('.gallery-section');
 const addPhotoSection = document.querySelector('.add-photo-section');
+const success = document.querySelector('.success');
 if (backToGalleryButton) {
     backToGalleryButton.addEventListener('click', function() {
         if (gallerySection && addPhotoSection) {
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
             backToGalleryButton.style.display = 'none';
+            success.style.display = 'none';
         }
     });
 }
@@ -292,18 +294,17 @@ sendWorkBtn.addEventListener('click', async function (event) {
     if (response.ok) {
         const newWork = await response.json();
         addWorkToDOM(newWork);
-        const success = document.querySelector('.success');
         success.style.display = 'flex';
         addPhotoSection.style.display = 'none';
         const successButton = document.querySelector('.btn-success');
+        addPhotoBtn.addEventListener('click', function() {
+            fileInput.click();
+        });
         successButton.addEventListener('click', function() {
             gallerySection.style.display = 'flex';
             addPhotoSection.style.display = 'none';
             backToGalleryButton.style.display = 'none';
             success.style.display = 'none';
-            addPhotoBtn.addEventListener('click', function() {
-                fileInput.click();
-            });
         });
     }
 });
