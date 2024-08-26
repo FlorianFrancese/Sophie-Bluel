@@ -47,7 +47,6 @@ function createGallery(returnWorks) {
 // Appel de la fonction pour afficher tous les travaux
 createGallery(returnWorks); 
 
-
 // ************************************************************
 // Affichage des filtres
 // ************************************************************
@@ -82,6 +81,7 @@ for (let categorie = 0; categorie < returnCategories.length; categorie++) {
     });
 }
 
+// Changement de la classe des boutons de filtre pour mettre en surbrillance le bouton sélectionné
 const changeClassFilter = document.querySelectorAll('.filters button');
 changeClassFilter.forEach(button => {
     button.addEventListener('click', () => {
@@ -92,7 +92,6 @@ changeClassFilter.forEach(button => {
     });
 });
 
-
 // ************************************************************
 // Récupération du token
 // ************************************************************
@@ -100,7 +99,7 @@ changeClassFilter.forEach(button => {
 let token = localStorage.getItem('token');
 
 // ************************************************************
-// Afficahge des informations si l'utilisateur est connecté
+// Affichage des informations si l'utilisateur est connecté
 // ************************************************************
 
 if (token) {
@@ -119,7 +118,7 @@ if (token) {
 }
 
 // ************************************************************
-//Gestion du logout
+// Gestion du logout
 // ************************************************************
 
 const logout = document.querySelector('.logout');
@@ -167,6 +166,7 @@ const closeModal = function (event) {
         gallerySection.style.display = 'flex';
         addPhotoSection.style.display = 'none';
         backToGalleryButton.style.display = 'none';
+        success.style.display = 'none';
     }
     modal.addEventListener('animationend', hideModal);
 }
@@ -174,7 +174,6 @@ const closeModal = function (event) {
 const stopPropagation = function (event) {
     event.stopPropagation();
 }
-
 
 const focusInModal = function (event) {
     event.preventDefault();
@@ -206,6 +205,10 @@ window.addEventListener('keydown', function (event) {
     }
 })
 
+// ************************************************************
+// Affichage des travaux dans la modale
+// ************************************************************
+
 const worksModal = document.querySelector('.modal-works');
 for (let workModal = 0; workModal < returnWorks.length; workModal++) { 
     const figure = document.createElement('figure');
@@ -236,6 +239,10 @@ for (let workModal = 0; workModal < returnWorks.length; workModal++) {
     });
 }
 
+// ************************************************************
+// Affichage des catégories dans la modale
+// ************************************************************
+
 const categorieModal = document.querySelector('.add-photo-section select');
 for (let modalcategorie = 0; modalcategorie < returnCategories.length; modalcategorie++) {
     const modalcategories = document.createElement('option');
@@ -243,6 +250,10 @@ for (let modalcategorie = 0; modalcategorie < returnCategories.length; modalcate
     modalcategories.value = returnCategories[modalcategorie].id;
     categorieModal.appendChild(modalcategories);
 }
+
+// ************************************************************
+// Gestion de l'affichage de la section d'ajout de photo
+// ************************************************************
 
 const showAddPhotoButton = document.querySelector('.show-add-photo');
 if (showAddPhotoButton) {
@@ -271,6 +282,10 @@ if (backToGalleryButton) {
         }
     });
 }
+
+// ************************************************************
+// Gestion de l'ajout de photo
+// ************************************************************
 
 const addPhotoBtn = document.querySelector('.add-photo-btn');
 const fileInput = document.querySelector('.btn-input');
@@ -321,6 +336,10 @@ sendWorkBtn.addEventListener('click', async function (event) {
     }
 });
 
+// ************************************************************
+// Ajout du nouveau travail au DOM
+// ************************************************************
+
 function addWorkToDOM(work) {
     const figure = document.createElement('figure');
     const img = document.createElement('img');
@@ -361,6 +380,10 @@ function addWorkToDOM(work) {
     });
 }
 
+// ************************************************************
+// Gestion de l'affichage de la miniature de l'image ajoutée
+// ************************************************************
+
 let miniature = document.querySelector('.add-miniature');
 let addImage = document.querySelector('.add-picture');
 fileInput.addEventListener('change', function() {
@@ -388,6 +411,10 @@ fileInput.addEventListener('change', function() {
         alert('Le fichier doit être une image au format png, jpg ou jpeg.');
     }
 });
+
+// ************************************************************
+// Vérification des champs du formulaire d'ajout de photo
+// ************************************************************
 
 let titleInput = document.querySelector('input[name="title"]');
 let categorySelect = document.querySelector('select[name="category"]');
