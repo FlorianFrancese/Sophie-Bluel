@@ -404,7 +404,7 @@ fileInput.addEventListener('change', function() {
             });
         };
         reader.readAsDataURL(image);
-    } else if (validSize <= image.size) {
+    } else if (validSize < image.size) {
         alert('Le fichier doit faire maximum 4mo.');
     }
     else {
